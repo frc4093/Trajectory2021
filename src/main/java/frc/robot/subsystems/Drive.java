@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
@@ -41,6 +42,7 @@ public class Drive extends SubsystemBase {
   PIDController rightPIDController = new PIDController(6.38, 0, 2.9); 
 
   Pose2d pose;
+  private final DifferentialDrive d = new DifferentialDrive(falconFL, falconFR);
   /** Creates a new Drive. */
   public Drive() {
     falconFL = new WPI_TalonFX(1);        
@@ -90,6 +92,9 @@ public DifferentialDriveWheelSpeeds getSpeeds(){
 public void setOutput(double leftVolts,double rightVolts){
   falconFL.set(leftVolts/12);
   falconFR.set(rightVolts/12);
+}
+public void arcadeDrive(double speed, double rotation){
+    d.arcadeDrive(speed, rotation);
 }
   @Override
   public void periodic() {
