@@ -51,7 +51,7 @@ public class RobotContainer {
     } catch (IOException ex){
     DriverStation.reportError("Failed to open trajectory: " + trajectoryJSON, ex.getStackTrace());
     }
-
+    reset();
   }
 
   /**
@@ -60,7 +60,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
