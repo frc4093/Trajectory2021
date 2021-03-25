@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -62,7 +63,7 @@ public DifferentialDriveKinematics getKinematics(){
 public Pose2d getPose2d(){
   return pose;
 }
-SimpleMotorFeedforward getFeedforward(){
+public SimpleMotorFeedforward getFeedforward(){
   return feedforward;
 }
 public PIDController getLeftPIDController(){
@@ -79,6 +80,16 @@ public double getDriveDistance(WPI_TalonFX motor){
 }
 public void reset() {
   odometry.resetPosition(new Pose2d(), getHeading());
+}
+public DifferentialDriveWheelSpeeds getSpeeds(){ 
+  return new DifferentialDriveWheelSpeeds(
+      getMotor_RPM(falconFL)*kGearRatio*2*Math.PI*Units.inchesToMeters(3)/60, 
+      getMotor_RPM(falconFR)*kGearRatio*2*Math.PI*Units.inchesToMeters(3)/60
+  );
+}
+public void setOutput(double leftVolts,double rightVolts){
+  falconFL.set(leftVolts/12);
+  falconFR.set(rightVolts/12);
 }
   @Override
   public void periodic() {
